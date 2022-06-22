@@ -1,4 +1,4 @@
-# ionic-chat Sample App
+# schedulicity-chat Sample App
 
 This project contains a fully functional chat backend with the following major elements:
 - postgreSQL DB
@@ -21,7 +21,7 @@ NOTE: There may be a delay until the migrations run, as there is a healthcheck w
 
 The API should be available at `http://localhost:5000`
 
-The swagger ui should be available at `http://localhost:5000/swagger`
+The Swagger UI should be available at `http://localhost:5000/swagger`
 
 The UI should be available at `http://localhost:8100`
 
