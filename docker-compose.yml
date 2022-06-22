@@ -1,0 +1,44 @@
+version: "2.4"
+
+services:
+  api:
+    build: ./api
+    image: schedulicity-chat-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespasswd
+      POSTGRES_host: postgres
+    ports:
+      - "5000:80"
+    volumes:
+      - ./api:/usr/src/app
+
+  postgres:
+    build: ./postgres
+    image: schedulicity-chat-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespasswd
+      POSTGRES_DB: schedulicity_chat
+      PGDATA: /var/lib/postgres/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/.schedulicity_chat/pgdata:/var/lib/postgres/data/pgdata
+    healthcheck:
+      test: "pg_isready --username=postgres && psql --username=postgres --list"  # to ensure migrations can run
+      timeout: 5s
+      retries: 10
+      
+  ui:
+    build: ./ui
+    image: schedulicity-chat-ui
+    command: [sh, -cx, "cd /usr/src/app/schedulicity-chat && npm install && ng serve --port 8100 --host=0.0.0.0"]
+    ports:
+      - "8100:8100"
+    volumes:
+      - ./ui:/usr/src/app
+      - /usr/src/app/schedulicity-chat/node_modules
