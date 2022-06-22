@@ -25,7 +25,7 @@ The Swagger UI should be available at `http://localhost:5000/swagger`
 
 The UI should be available at `http://localhost:8100`
 
-### Stopping app
+### Stopping the cluster
 ```shell
 docker-compose down -v
 ```
