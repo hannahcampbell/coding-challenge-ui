@@ -36,7 +36,7 @@ services:
   ui:
     build: ./ui
     image: schedulicity-chat-ui
-    command: [sh, -cx, "cd /usr/src/app/schedulicity-chat && npm install && ng serve --port 8100 --host=0.0.0.0"]
+    command: [sh, -cx, "cd /usr/src/app/schedulicity-chat && npm install && ng serve --port 8100 --host=0.0.0.0 --poll"]
     ports:
       - "8100:8100"
     volumes:

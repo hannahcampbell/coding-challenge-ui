@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+    {
+        "name": "Attach to Chrome",
+        "port": 4200,
+        "request": "attach",
+        "type": "chrome",
+        "webRoot": "${workspaceFolder}"
+    },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open app.component.html",
+            "file": "/mnt/wsl/docker-desktop-bind-mounts/Ubuntu/d8883980e21f2dc0c8f62941ed8447a05a9af7fe5a40ab0af349cad21199f2c5/schedulicity-chat/src/app/app.component.html"
+        }
+    ]
+}
