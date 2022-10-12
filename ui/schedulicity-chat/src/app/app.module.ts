@@ -4,16 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login';
-//import { RegisterComponent } from './register';
-//import { ChatComponent } from './chat';
+import { RegisterComponent } from './register';
+import { ChatComponent } from './chat';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    //RegisterComponent,
-    //ChatComponent
+    RegisterComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

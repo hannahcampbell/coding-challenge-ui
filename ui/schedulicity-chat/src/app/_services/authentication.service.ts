@@ -5,6 +5,7 @@ import { User } from '../_models';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SelectControlValueAccessor } from '@angular/forms';
 //import * as internal from 'stream';
 
 @Injectable({ providedIn: 'root' })
@@ -21,47 +22,22 @@ export class AuthenticationService{
         return localStorage.getItem('loggedIn');
     }
 
-    login(username: string) {
-        // let response = this.http.get('http://localhost:5000/api/users/dove').subscribe();
-        // console.log(response);
-        this.http.get<User>("http://localhost:5000/api/users/" + username).subscribe((data: User) => {
-            console.log(data)
-        })
-
-    }
-
-    /*login(user: User) {
-        this.http.get(environment.baseAPIURL + 'users/' + user).pipe(map(response => {
-            //login is successful, set local storage
-            localStorage.setItem('loggedIn', JSON.stringify(response));
-            console.log(response);
-            })
-        ).subscribe();
-    }*/
-
     /*login(username: string) {
-        this.http.get(environment.baseAPIURL + 'users/' + username).pipe(map(response => {
-            //login is successful, set local storage
-            if(response && response.hasOwnProperty('id')){
-                localStorage.setItem('loggedIn', JSON.stringify(response));
-                console.log(localStorage.getItem('loggedIn'));
+        this.http.get<User>("http://localhost:5000/api/users/" + username).subscribe(
+            (data: User) => {
+                localStorage.setItem('loggedIn', JSON.stringify(data));
+                return true;
+            },
+            (err) => {
+                //TODO prompt user to retype username or register
+                console.log(err);
+                return false
             }
-            //login unsuccessful
-            else{
-                console.log(response);
-            }
-        }));
+        )
+
     }*/
 
-    // login(username: string){
-    //     let response = this.http.get(environment.baseAPIURL + 'users/' + username).pipe(map(response => {
-    //         localStorage.setItem('loggedIn', JSON.stringify(response));
-    //         console.log(localStorage.getItem('loggedIn'));
-    //         return response;
-    //     }));
-    // }
-
-    register(username: string) {
+    /*register(username: string) {
         this.http
             .post(environment.baseAPIURL + 'users/', {'name': username})
             .pipe(
@@ -72,7 +48,7 @@ export class AuthenticationService{
                     return throwError(err);
                 })
             )
-    }
+    }*/
 
     logout() {
         localStorage.removeItem('loggedIn');

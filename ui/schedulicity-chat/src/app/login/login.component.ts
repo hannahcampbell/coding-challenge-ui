@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, AuthenticationService } from '../_services';
 import { first } from 'rxjs/operators';
+import { User } from '../_models';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl!: string;
+    signInError : string | undefined;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -22,11 +24,10 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-
         private http: HttpClient,
     ){
         if(localStorage.getItem('loggedIn')){
-            this.router.navigate(['/']);
+            this.router.navigate(['/chat']);
         }
     }
 
@@ -44,16 +45,32 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        //this.submitted = true;
-
+        this.submitted = true;
+        
         if(this.loginForm.invalid){
             return;
         }
 
-        //this.http.get('http://localhost:5000/api/users/dove').subscribe();
+        this.loading = true;
+        //this.authenticationService.login(this.form.username.value);
+        this.login(this.form.username.value);
+    }
 
-        //this.loading = true;
-        this.authenticationService.login(this.form.username.value);
+    login(username: string) {
+        this.http.get<User>("http://localhost:5000/api/users/" + username).subscribe(
+            (data: User) => {
+                localStorage.setItem('loggedIn', JSON.stringify(data));
+                //redirect to chat page
+                this.router.navigate(['/chat']);
+            },
+            (err) => {
+                console.log(err);
+                //set error message
+                this.signInError = "Login failed. Please correct your username or register.";
+                this.submitted = false;
+                this.loading = false;
+            }
+        )
     }
 
 }

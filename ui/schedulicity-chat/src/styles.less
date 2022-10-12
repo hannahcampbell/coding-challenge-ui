@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** Global **/
 body {
     font-family: 'Verdana',sans-serif;
 }
@@ -6,6 +8,8 @@ body {
 h2 {
     font-weight: normal;
 }
+
+/** Forms **/
 
 h2.form-heading {
     text-align: center;
@@ -19,7 +23,7 @@ form.login-form, form.register-form {
     border-radius: 8px;
 }
 
-button.btn.btn-primary {
+button {
     background: #04AA6D;
     color: #fff;
     height: 3rem;
@@ -27,10 +31,15 @@ button.btn.btn-primary {
     border-radius: 8px;
     cursor: pointer;
     border: none;
+    font-weight: bold;
 }
 
-button.btn.btn-primary:active, button.btn.btn-primary:hover, button.btn.btn-primary:focus {
+button:active, button:hover, button:focus {
     background: #059862;
+}
+
+button:disabled {
+    background: lightgray;
 }
 
 input {
@@ -41,3 +50,22 @@ input {
     font-size: 1rem;
     margin: 10px;
 }
+
+a.btn.btn-link {
+    padding-left: 1em;
+}
+
+/** Icons **/
+.icon::before {
+    display:inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.invalid-feedback::before {
+    font: var(--fa-font-solid);
+    content: "\f071";
+    color: #ff0066;
+    padding-right: 5px;
+}
+
