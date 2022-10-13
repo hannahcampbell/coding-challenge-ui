@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit {
     submitted = false;
     createError: string | undefined;
     loading = false;
+    roomID!: number;
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -43,6 +44,10 @@ export class ChatComponent implements OnInit {
                 console.log(data);
                 this.roomList = data.reverse();
                 this.isDataAvailable = true
+                //trigger chat room message window
+                if(data.length > 0){
+                    this.roomID = data[0].id;
+                }
             },
             (err) => {
                 console.log(err);
@@ -52,12 +57,24 @@ export class ChatComponent implements OnInit {
         )
     }
 
+    logoutClick() {
+        this.authenticationService.logout();
+    }
+
+    /**
+     * Create chat room logic
+     */
     get form() {
         return this.roomForm.controls;
     }
 
     createClick() {
-        this.showCreateForm = true;
+        if(this.showCreateForm){
+            this.showCreateForm = false;
+        }
+        else{
+            this.showCreateForm = true;
+        }
     }
 
     onSubmit() {
@@ -78,8 +95,9 @@ export class ChatComponent implements OnInit {
                 this.showCreateForm = false;
                 this.submitted = false;
                 this.loading = false;
+                //trigger chat room window
+                this.roomID = data.id;
                 //TODO clear form
-                //TODO trigger new room chat window
             },
             (err) => {
                 console.log(err);
@@ -89,12 +107,7 @@ export class ChatComponent implements OnInit {
             }
         )
     }
-
-    cancelCreate() {
-        this.showCreateForm = false;
-    }
-
-    logoutClick() {
-        this.authenticationService.logout();
-    }
+    /**
+     * End create chat room logic
+     */
 }

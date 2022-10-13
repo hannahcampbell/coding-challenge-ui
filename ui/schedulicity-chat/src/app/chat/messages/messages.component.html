@@ -1,0 +1,14 @@
+
+<div *ngIf="isDataAvailable" class="message-container">
+    <!--area to post messages-->
+    <div class="message-history">
+        <p *ngIf="messageList.length == 0" class="prompt">Be the first to post to this room!</p>
+
+        <div *ngFor="let message of messageList" class="message-item" [ngClass]="{'my-message': message.userName == userName}">
+            <span class="message-username">{{message.userName}}</span>
+            <span class="message-created">{{message.created}}</span>
+            <p class="message-content">{{message.content}}</p>
+        </div>
+
+    </div>
+</div>

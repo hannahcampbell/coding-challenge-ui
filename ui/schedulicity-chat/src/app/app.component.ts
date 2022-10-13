@@ -14,7 +14,13 @@ export class AppComponent {
     private router: Router,
     
   ){
-
+    //redirect if not logged in
+    if(!localStorage.getItem('loggedIn')){
+      this.router.navigate(['/login']);
+    }
+    else{
+      this.router.navigate(['/chat']);
+    }
   }
 
 }
