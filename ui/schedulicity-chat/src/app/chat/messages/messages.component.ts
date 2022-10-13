@@ -32,7 +32,8 @@ export class MessagesComponent implements OnInit, OnChanges{
     getRoomMessages() {
         return this.http.get(environment.baseAPIURL + "rooms/" + this.currentRoom + '/messages').subscribe(
             (data: any) => {
-                this.messageList = this.toReadableDate(data.splice(50));
+                this.messageList = this.toReadableDate(data);
+                this.messageList.splice(50);
                 this.isDataAvailable = true
             },
             (err) => {
