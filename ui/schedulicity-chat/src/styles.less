@@ -34,8 +34,36 @@ button {
     font-weight: bold;
 }
 
+button.secondary {
+    height: 2rem;
+    background: #fff;
+    color: #222;
+    border: 1px solid #04AA6D;
+}
+
+button.tertiary {
+    background: #ccccff;
+    color: #222;
+    height: 1.6rem;
+    border: 1px solid #8080ff;
+}
+
+button.create {
+    height: 2.29rem;
+    margin: 10px 0;
+    font-size: 1rem;
+    width: 325px;
+    background: #ccccff;
+    border: 1px solid #8080ff;
+    color: #222;
+}
+
 button:active, button:hover, button:focus {
     background: #059862;
+}
+
+button.tertiary:active, button.tertiary:hover, button.tertiary:focus, button.create:active, button.create:hover, button.create:focus {
+    background: #8080ff;
 }
 
 button:disabled {

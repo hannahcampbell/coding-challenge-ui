@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService, AuthenticationService } from '../_services';
-import { first } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
+//import { AlertService, AuthenticationService } from '../_services';
+//import { first } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_models';
 
@@ -17,8 +18,8 @@ export class RegisterComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService,
+        //private authenticationService: AuthenticationService,
+        //private alertService: AlertService,
         private http: HttpClient,
     ) {
         //redirect if logged in
@@ -65,7 +66,7 @@ export class RegisterComponent implements OnInit {
     register(name: Object) {
         console.log(name);
 
-        this.http.post<User>("http://localhost:5000/api/users/", name).subscribe(
+        this.http.post<User>(environment.baseAPIURL + 'users/', name).subscribe(
             (data: User) => {
                 localStorage.setItem('loggedIn', JSON.stringify(data));
                 //redirect to chat page

@@ -1,2 +1,28 @@
-<span>Hello {{ userName }}!</span>
-<button (click)="logoutClick()">Logout</button>
+<span>Hello {{ userName }}! Let's start chatting!</span>
+<button class="secondary" (click)="logoutClick()">Logout</button>
+
+<!--list of rooms ordered by most recently active with option to create a room-->
+<div>
+    <h3>Join a room or <button class="tertiary" (click)="createClick()">create a room</button></h3>
+
+    <!--Form to create a room-->
+    <div *ngIf="showCreateForm">
+        <form [formGroup]="roomForm" (ngSubmit)="onSubmit()" class="create-form">
+            <div class="form-group">
+                <label for="name">Room Name</label>
+                <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': (submitted && form.name.errors || createError && createError.length > 0) }" />
+                <div *ngIf="submitted && form.name.errors" class="invalid-feedback icon">Room name is required</div>
+                <div *ngIf="createError && createError.length > 0" class="invalid-feedback icon">{{createError}}</div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loading" class="create" title="create"><i class="fa-solid fa-plus"></i></button>
+                <!--a role="button" (click)="cancelCreate" class="cancel">Cancel</a-->
+            </div>
+        </form>
+    </div>
+
+    <h4>We're chatting about...</h4>
+    <ul *ngIf="isDataAvailable">
+        <li *ngFor="let room of roomList">{{room.name}}</li>
+    </ul>
+</div>
