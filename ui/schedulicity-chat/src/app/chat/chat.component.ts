@@ -88,24 +88,21 @@ export class ChatComponent implements OnInit {
     }
 
     createRoom(room: object) {
-        //validate form
         this.http.post<Room>(environment.baseAPIURL + "rooms", room).subscribe(
             (data: Room) => {
                 this.roomList.unshift(data);
                 this.showCreateForm = false;
-                this.submitted = false;
-                this.loading = false;
-                //trigger chat room window
+                this.roomForm.reset();
+                //trigger messages component
                 this.roomID = data.id;
-                //TODO clear form
             },
             (err) => {
                 console.log(err);
                 this.createError = "Room name must be unique";
-                this.submitted = false;
-                this.loading = false;
             }
         )
+        this.submitted = false;
+        this.loading = false;
     }
     /**
      * End create chat room logic

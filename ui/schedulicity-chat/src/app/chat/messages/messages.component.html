@@ -1,14 +1,19 @@
 
 <div *ngIf="isDataAvailable" class="message-container">
-    <!--area to post messages-->
     <div class="message-history">
         <p *ngIf="messageList.length == 0" class="prompt">Be the first to post to this room!</p>
-
+        
         <div *ngFor="let message of messageList" class="message-item" [ngClass]="{'my-message': message.userName == userName}">
             <span class="message-username">{{message.userName}}</span>
             <span class="message-created">{{message.created}}</span>
             <p class="message-content">{{message.content}}</p>
         </div>
-
     </div>
+
+    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="create-form">
+        <div class="form-group">
+            <input type="text" formControlName="message" class="form-control" title="message input" placeholder="What are your thoughts?"/>
+            <button [disabled]="loading" class="create-message" title="create"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </form>
 </div>

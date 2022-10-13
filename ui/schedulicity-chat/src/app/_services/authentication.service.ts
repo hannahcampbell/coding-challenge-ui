@@ -63,4 +63,12 @@ export class AuthenticationService{
         }
         return null;
     }
+
+    getUserId() {
+        let loginData = localStorage.getItem('loggedIn');
+        if(loginData){
+            let data = JSON.parse(loginData);
+            return data.id;
+        }
+    }
 }
