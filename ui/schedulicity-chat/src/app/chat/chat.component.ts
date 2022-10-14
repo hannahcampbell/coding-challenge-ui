@@ -17,6 +17,8 @@ export class ChatComponent implements OnInit {
     createError: string | undefined;
     loading = false;
     roomID!: number;
+    roomName: string | undefined;
+    loggedIn = false;
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -25,9 +27,9 @@ export class ChatComponent implements OnInit {
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
     ) {
-        //redirect if not logged in
-        if(!localStorage.getItem('loggedIn')){
-            this.router.navigate(['/login']);
+        
+        if(localStorage.getItem('loggedIn')){
+            this.loggedIn = true;
         }
     }
 
@@ -42,11 +44,16 @@ export class ChatComponent implements OnInit {
         return this.http.get(environment.baseAPIURL + 'rooms/').subscribe(
             (data: any) => {
                 console.log(data);
-                this.roomList = data.reverse();
+                if(data){
+                    this.roomList = data.sort((a: Room, b:Room) => 
+                        new Date(<string>b.updated).getTime() - new Date(<string>a.updated).getTime()
+                    );
+                }
                 this.isDataAvailable = true
                 //trigger chat room message window
                 if(data.length > 0){
                     this.roomID = data[0].id;
+                    this.roomName = data[0].name;
                 }
             },
             (err) => {
@@ -57,8 +64,14 @@ export class ChatComponent implements OnInit {
         )
     }
 
+    roomSelect(room: any){
+        this.roomID = room.id;
+        this.roomName = room.name;
+    }
+
     logoutClick() {
         this.authenticationService.logout();
+        this.loggedIn = false;
     }
 
     /**
@@ -83,18 +96,23 @@ export class ChatComponent implements OnInit {
         if (this.roomForm.invalid) return;
 
         this.loading = true;
-        this.createRoom(this.roomForm.value);
+        this.createRoom(this.roomForm.value.name);
 
     }
 
-    createRoom(room: object) {
-        this.http.post<Room>(environment.baseAPIURL + "rooms", room).subscribe(
+    createRoom(room: string) {
+        let newRoom = new Room;
+        newRoom.name = room;
+        newRoom.updated = new Date().toISOString();
+
+        this.http.post<Room>(environment.baseAPIURL + "rooms", newRoom).subscribe(
             (data: Room) => {
                 this.roomList.unshift(data);
                 this.showCreateForm = false;
                 this.roomForm.reset();
                 //trigger messages component
                 this.roomID = data.id;
+                this.roomName = data.name;
             },
             (err) => {
                 console.log(err);

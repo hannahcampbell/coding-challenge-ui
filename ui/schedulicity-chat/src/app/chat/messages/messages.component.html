@@ -1,6 +1,7 @@
 
 <div *ngIf="isDataAvailable" class="message-container">
     <div class="message-history">
+        <h4 class="room-name">{{roomName}}</h4>
         <p *ngIf="messageList.length == 0" class="prompt">Be the first to post to this room!</p>
         
         <div *ngFor="let message of messageList" class="message-item" [ngClass]="{'my-message': message.userName == userName}">
@@ -10,10 +11,11 @@
         </div>
     </div>
 
-    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="create-form">
+    <form *ngIf="loggedIn" [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="message-form">
         <div class="form-group">
-            <input type="text" formControlName="message" class="form-control" title="message input" placeholder="What are your thoughts?"/>
+            <input type="textarea" formControlName="message" class="form-control message-input" title="message input" placeholder="What are your thoughts?"/>
             <button [disabled]="loading" class="create-message" title="create"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </form>
+    <p *ngIf="loggedIn == false" id="login-prompt">Login or register to join the conversation.</p>
 </div>

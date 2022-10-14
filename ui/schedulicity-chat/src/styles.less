@@ -1,15 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+/**
+Index
+1. Global
+2. Forms
+3. Icons
+4. Login/logout controls
+5. Chat page layout
+6. @media queries
+**/
 
-/** Global **/
+/** 1. Global **/
 body {
     font-family: 'Verdana',sans-serif;
+}
+
+h1 {
+    font-weight: normal;
 }
 
 h2 {
     font-weight: normal;
 }
 
-/** Forms **/
+ul {
+    list-style: none;
+}
+
+/** 2. Forms **/
 
 h2.form-heading {
     text-align: center;
@@ -24,10 +40,9 @@ form.login-form, form.register-form {
 }
 
 form.create-form {
-    border: 1px solid lightgray;
     border-radius: 8px;
-    width: 338px;
-    padding: 1%;
+    width: 310px;
+    padding: 2%;
 }
 
 button {
@@ -43,25 +58,19 @@ button {
 
 button.secondary {
     height: 2rem;
-    background: #fff;
-    color: #222;
-    border: 1px solid #04AA6D;
 }
 
 button.tertiary {
-    background: #ccccff;
-    color: #222;
+    background: #fff;
     height: 1.6rem;
-    border: 1px solid #8080ff;
+    color: #222;
 }
 
 button.create {
     height: 2.29rem;
     margin: 10px 0;
     font-size: 1rem;
-    width: 325px;
-    background: #ccccff;
-    border: 1px solid #8080ff;
+    background: #8080ff;
     color: #222;
 }
 
@@ -70,7 +79,7 @@ button:active, button:hover, button:focus {
 }
 
 button.tertiary:active, button.tertiary:hover, button.tertiary:focus, button.create:active, button.create:hover, button.create:focus {
-    background: #8080ff;
+    background: #f1f1f1;
 }
 
 button:disabled {
@@ -90,7 +99,7 @@ a.btn.btn-link {
     padding-left: 1em;
 }
 
-/** Icons **/
+/** 3. Icons **/
 .icon::before {
     display:inline-block;
     text-rendering: auto;
@@ -104,3 +113,127 @@ a.btn.btn-link {
     padding-right: 5px;
 }
 
+/** 4. Login/Logout controls **/
+
+.login-controls {
+    float: right;
+}
+
+a#login-link {
+    background: #04aa6d;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 0.6em;
+    border-radius: 8px;
+}
+
+a#login-link:hover, a#login-link:focus {
+    background: #059862;
+}
+
+a#register-link {
+    border: 1px solid #04aa6d;
+    padding: 0.6rem;
+    margin-left: 10px;
+    border-radius: 8px;
+    color: #04aa6d;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a#register-link:hover, a#register-link:focus {
+    background: #04aa6d;
+    color: #fff;
+}
+
+
+/** 5. Chat page layout **/
+
+.chat-list {
+    width: 25%;
+    min-width: 250px;
+    float: right;
+    clear: right;
+    padding: 2%;
+    margin-top: 30px;
+    z-index: 1;
+    background-image: url(assets/images/abstract_rainbow_fade.jpg);
+    background-position: right;
+    border-radius: 8px;
+}
+
+.message-container {
+    border: 1px solid lightgray;
+    margin: 40px 28% 0 10px;
+    padding: 2%;
+    border-radius: 8px;
+    background: #f4f5f0;
+}
+
+h4.room-name:after {
+    content: "";
+    display: block;
+    width: 50px;
+    padding-top: 10px;
+    margin-bottom: 15px;
+    border-bottom: 4px solid #ff0066;
+}
+
+.message-item {
+    background: rgba(198, 236, 207, .5);
+    margin: 10px 0;
+    padding: 1%;
+    width: 80%;
+    border-radius: 8px;
+    float: left;
+}
+
+.message-item.my-message {
+    float: right;
+    background: rgba(198,198,236,0.5);
+}
+
+span.message-username {
+    font-size: .9rem;
+}
+
+span.message-created {
+    font-size: 0.9rem;
+    float: right;
+}
+
+input.message-input {
+    width: 85%;
+    height: 45px;
+}
+
+button.room-select {
+    background: #222;
+    width: 85%;
+    margin: 5px 0;
+}
+
+button.room-select:hover, button.room-select:focus, button.room-select:active {
+    outline: 2px solid #222;
+    border: 1px solid #fff;
+}
+
+p#login-prompt {
+    clear: both;
+}
+
+/** 6. @media queries **/
+
+@media (max-width: 1000px) {
+    .message-container {
+        margin-right: 10px;
+    }
+
+    .chat-list {
+        float: none;
+        clear: none;
+        width: auto;
+        margin: 40px 10px 0 10px;
+    }
+}

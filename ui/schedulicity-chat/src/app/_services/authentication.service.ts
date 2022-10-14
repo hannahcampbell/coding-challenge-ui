@@ -22,37 +22,8 @@ export class AuthenticationService{
         return localStorage.getItem('loggedIn');
     }
 
-    /*login(username: string) {
-        this.http.get<User>("http://localhost:5000/api/users/" + username).subscribe(
-            (data: User) => {
-                localStorage.setItem('loggedIn', JSON.stringify(data));
-                return true;
-            },
-            (err) => {
-                //TODO prompt user to retype username or register
-                console.log(err);
-                return false
-            }
-        )
-
-    }*/
-
-    /*register(username: string) {
-        this.http
-            .post(environment.baseAPIURL + 'users/', {'name': username})
-            .pipe(
-                map(response => {
-                    return localStorage.setItem('loggedIn', JSON.stringify(response));
-                }),
-                catchError(err => {
-                    return throwError(err);
-                })
-            )
-    }*/
-
     logout() {
         localStorage.removeItem('loggedIn');
-        this.router.navigate(['/login']);
     }
 
     getUsername() {

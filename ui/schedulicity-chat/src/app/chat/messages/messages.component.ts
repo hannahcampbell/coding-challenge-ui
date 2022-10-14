@@ -13,6 +13,8 @@ import { AuthenticationService } from '../../_services';
 
 export class MessagesComponent implements OnInit, OnChanges{
     @Input() roomID!: number;
+    @Input() roomName: string | undefined;
+    @Input() loggedIn: boolean | undefined;
     userName = this.authenticationService.getUsername();
     userId = this.authenticationService.getUserId();
     currentRoom!: number;
@@ -44,7 +46,11 @@ export class MessagesComponent implements OnInit, OnChanges{
         return this.http.get(environment.baseAPIURL + "rooms/" + this.currentRoom + '/messages').subscribe(
             (data: any) => {
                 this.messageList = this.toReadableDate(data);
-                this.messageList.splice(50);
+                if(this.messageList.length > 50){
+                    //let cut = this.messageList.length - 50;
+                    //this.messageList.splice(cut);
+                    this.messageList = this.messageList.slice(-50);
+                }
                 this.isDataAvailable = true
             },
             (err) => {
@@ -94,7 +100,11 @@ export class MessagesComponent implements OnInit, OnChanges{
                 data = this.toReadableDate(data, true);
                 data.userName = this.userName;
                 this.messageList.push(data);
-                this.messageList.splice(50);
+                if(this.messageList.length > 50){
+                    //let cut = this.messageList.length - 50;
+                    //this.messageList.splice(-cut);
+                    this.messageList = this.messageList.slice(-50);
+                }
             },
             (err) => {
                 console.log(err);
