@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChange } from "@angular/core";
+import { Component, Input, OnInit, OnChanges } from "@angular/core";
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { formatDate } from '@angular/common';
@@ -45,24 +45,20 @@ export class MessagesComponent implements OnInit, OnChanges{
     getRoomMessages() {
         return this.http.get(environment.baseAPIURL + "rooms/" + this.currentRoom + '/messages').subscribe(
             (data: any) => {
-                this.messageList = this.toReadableDate(data);
+                this.messageList = this.toFriendlyDate(data);
                 if(this.messageList.length > 50){
-                    //let cut = this.messageList.length - 50;
-                    //this.messageList.splice(cut);
                     this.messageList = this.messageList.slice(-50);
                 }
                 this.isDataAvailable = true
             },
             (err) => {
-                console.log(err);
                 //TODO something with this error
                 return;
             }
         )
     }
     
-    //TODO set date format to locale format
-    toReadableDate(data: any, create?: boolean) {
+    toFriendlyDate(data: any, create?: boolean) {
         if(create) {
             data.created = formatDate(data.created, 'short', 'en_US');
         }
@@ -97,17 +93,14 @@ export class MessagesComponent implements OnInit, OnChanges{
     postRoomMessage(message: object) {
         this.http.post<Message>(environment.baseAPIURL + "messages", message).subscribe(
             (data: Message) => {
-                data = this.toReadableDate(data, true);
+                data = this.toFriendlyDate(data, true);
                 data.userName = this.userName;
                 this.messageList.push(data);
                 if(this.messageList.length > 50){
-                    //let cut = this.messageList.length - 50;
-                    //this.messageList.splice(-cut);
                     this.messageList = this.messageList.slice(-50);
                 }
             },
             (err) => {
-                console.log(err);
                 //TODO something with this error
             }
         )

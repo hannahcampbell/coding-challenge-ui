@@ -9,9 +9,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'schedulicity-chat';
   
-
   constructor(
-    private router: Router,
+    private router: Router
     
   ){
     //redirect

@@ -1,6 +1,6 @@
 import { ChatComponent } from './chat/chat.component';
 import { RegisterComponent } from './register/register.component';
-import { NgModule, Component } from '@angular/core'; 
+import { NgModule } from '@angular/core'; 
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from "./login";
 

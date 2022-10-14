@@ -2,7 +2,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
     <div class="form-group">
         <label for="name">Username</label>
-        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': (submitted && form.name.errors || signInError && signInError.length > 0) }" />
+        <input (keyup)="validateUsername($event)" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': (submitted && form.name.errors || signInError && signInError.length > 0) }" />
         <div *ngIf="submitted && form.name.errors" class="invalid-feedback icon">Username is required</div>
         <div *ngIf="signInError && signInError.length > 0" class="invalid-feedback icon">{{signInError}}</div>
     </div>

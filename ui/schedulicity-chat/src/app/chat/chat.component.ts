@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services';
-import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Room } from '../_models';
@@ -22,12 +21,9 @@ export class ChatComponent implements OnInit {
 
     constructor(
         private authenticationService: AuthenticationService,
-        private router: Router,
         private http: HttpClient,
-        private route: ActivatedRoute,
         private formBuilder: FormBuilder,
-    ) {
-        
+    ) {   
         if(localStorage.getItem('loggedIn')){
             this.loggedIn = true;
         }
@@ -43,7 +39,6 @@ export class ChatComponent implements OnInit {
     getRoomList() {
         return this.http.get(environment.baseAPIURL + 'rooms/').subscribe(
             (data: any) => {
-                console.log(data);
                 if(data){
                     this.roomList = data.sort((a: Room, b:Room) => 
                         new Date(<string>b.updated).getTime() - new Date(<string>a.updated).getTime()
@@ -57,7 +52,6 @@ export class ChatComponent implements OnInit {
                 }
             },
             (err) => {
-                console.log(err);
                 //TODO something with this error
                 return;
             }
@@ -92,12 +86,9 @@ export class ChatComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
         if (this.roomForm.invalid) return;
-
         this.loading = true;
         this.createRoom(this.roomForm.value.name);
-
     }
 
     createRoom(room: string) {
@@ -115,7 +106,6 @@ export class ChatComponent implements OnInit {
                 this.roomName = data.name;
             },
             (err) => {
-                console.log(err);
                 this.createError = "Room name must be unique";
             }
         )

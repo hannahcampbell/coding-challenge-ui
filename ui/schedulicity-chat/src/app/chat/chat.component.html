@@ -1,4 +1,4 @@
-<div class="header">
+<header>
     <div class="login-controls">
         <div *ngIf="loggedIn == false">
             <a id="login-link" routerLink="/login">Login</a>
@@ -9,7 +9,7 @@
         </div>
     </div>
     <h1>Welcome to Schedulicity Chat!</h1>
-</div>
+</header>
 
 <!--list of rooms ordered by most recently active with option to create a room-->
 <div class="chat-list">
@@ -24,9 +24,6 @@
                 <div *ngIf="submitted && form.name.errors" class="invalid-feedback icon">Room name is required</div>
                 <div *ngIf="createError && createError.length > 0" class="invalid-feedback icon">{{createError}}</div>
             </div>
-            <!--div class="form-group">
-                <button [disabled]="loading" class="create" title="create"><i class="fa-solid fa-plus"></i></button>
-            </div-->
         </form>
     </div>
 
